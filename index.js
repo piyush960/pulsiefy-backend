@@ -8,7 +8,7 @@ const authRoutes = require('./routes/authRoutes')
 const appRoutes = require('./routes/appRoutes')
 const { checkUser } = require('./middleware/authMiddleware')
 
-app.use(cors({credentials: true, origin: process.env.FRONTEND_ORIGIN}))
+app.use(cors({credentials: true, origin: process.env.FRONTEND_ORIGIN, methods: ['POST', 'GET', 'PUT', 'DELETE']}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
@@ -16,6 +16,10 @@ app.use(cookieParser())
 const PORT = process.env.PORT;
 
 app.get('*', checkUser)
+
+app.get('/', (req, res) => {
+    res.status(200).send('hello world')
+})
 
 app.use('/auth', authRoutes)
 app.use('/api', appRoutes)
