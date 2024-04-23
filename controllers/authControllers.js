@@ -11,8 +11,17 @@ const generateToken = (id) => {
     });
 }
 
-const user_login_get = (req, res) => {
-    res.send('login')
+const user_details_post = async (req, res) => {
+    const { user_id } = req.body;
+    console.log(user_id)
+    try{
+        const data = await pool.query('SELECT * FROM users WHERE user_id = $1', [user_id])
+        const user = data.rows[0]
+        res.status(200).json(user)
+    }
+    catch(e){
+        res.status(500).json({ success: false, message: e.message });
+    }
 }
 
 const user_logout_get = (req, res) => {
@@ -60,5 +69,5 @@ const user_signup_post = async (req, res) => {
 }
 
 module.exports = {
-    user_login_get, user_login_post, user_signup_post, user_logout_get
+    user_details_post, user_login_post, user_signup_post, user_logout_get
 }

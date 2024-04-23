@@ -10,7 +10,7 @@ const getHospitalData = async (lat, lon, query) => {
           query,
           lat: lat,
           lng: lon,
-          limit: '6',
+          limit: '10',
           country: 'in',
           lang: 'en',
           offset: '0',
@@ -32,13 +32,11 @@ const getHospitalData = async (lat, lon, query) => {
 
 
 const get_hospital_list_post = async (req, res) => {
-    const { symptoms, query, lat, lon } = req.body;
-    console.log(res.locals.user)
+    const { query, lat, lon } = req.body;
+    console.log(query, lat, lon)
     try{
-        if(symptoms){
-            // make call to ML api
-        }
         const data = await getHospitalData(lat, lon, query)
+        console.log(data)
         res.status(200).json(data)
     }
     catch(e){
