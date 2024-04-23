@@ -14,12 +14,12 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 const PORT = process.env.PORT;
-
-app.get('*', checkUser)
-
 app.get('/', (req, res) => {
     res.status(200).send('hello world')
 })
+
+app.get('*', checkUser)
+
 
 app.use('/auth', authRoutes)
 app.use('/api', appRoutes)
