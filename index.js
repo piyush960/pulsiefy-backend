@@ -14,6 +14,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 const PORT = process.env.PORT;
+
 app.get('/', (req, res) => {
     res.status(200).send('hello world')
 })
@@ -24,6 +25,5 @@ app.get('*', checkUser)
 app.use('/auth', authRoutes)
 app.use('/api', appRoutes)
 
-if(PORT){
-    app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
-}
+app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
+
