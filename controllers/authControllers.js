@@ -41,7 +41,7 @@ const user_login_post = async (req, res) => {
             throw new Error('invalid credentials')
         }
         const token = generateToken(user.user_id);
-        res.cookie('jwt', token, { httpOnly: true, sameSite: None, secure: true, maxAge: maxAge * 1000 });
+        res.cookie('jwt', token, { httpOnly: true, sameSite: None, maxAge: maxAge * 1000 });
         res.status(200).json({ user: user.user_id, success: true });
     }catch(e){
         res.status(400).json({ success: false, message: e.message });
